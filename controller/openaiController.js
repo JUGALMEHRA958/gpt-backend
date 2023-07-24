@@ -12,7 +12,7 @@ exports.summaryController = async (req, res) => {
     const { data } = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `Summarize this \n${text}`,
-      max_tokens: 12,
+      max_tokens: 50,
       temperature: 1,
     });
     if (data) {
