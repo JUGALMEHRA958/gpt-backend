@@ -2,14 +2,21 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 require("dotenv").config();
+const openairoutes = require("./routes/openaiRoutes").router;
+const cors = require("cors");
 
 //routes path
 
 const authRoutes = require("./routes/authRoute");
 const errorHandler = require("./middlewares/errorMiddleware");
+app.use(cors());
+app.use(express.json());
 
+// Middleware to parse URL-encoded data
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRoutes);
 app.use(errorHandler);
+app.use("/api/v1/openai", openairoutes);
 mongoose.connect(process.env.dburl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
